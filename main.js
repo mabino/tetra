@@ -339,6 +339,8 @@ function applyHighlightStyles() {
   currentEdges.material.color.setHex(0xffffff);
   currentEdges.material.opacity = 0.3;
 
+  // Hide vertices by default
+  currentVertices.visible = false;
   currentVertices.children.forEach(child => {
     child.material.color.setHex(0xffffff);
     child.material.opacity = 0.3;
@@ -352,17 +354,12 @@ function applyHighlightStyles() {
       currentMesh.material.emissive.setHex(0x1a1a00); // subtle warm glow
     }
     currentEdges.material.opacity = 0.1;
-    currentVertices.children.forEach(child => {
-      child.material.opacity = 0.1;
-    });
   } else if (activeHighlight === 'edges') {
     currentEdges.material.color.setHex(0x3b82f6); // accent blue
     currentEdges.material.opacity = 1.0;
     currentMesh.material.opacity = 0.15;
-    currentVertices.children.forEach(child => {
-      child.material.opacity = 0.1;
-    });
   } else if (activeHighlight === 'vertices') {
+    currentVertices.visible = true;
     currentVertices.children.forEach(child => {
       child.material.color.setHex(0xec4899); // hot pink
       child.material.opacity = 1.0;
