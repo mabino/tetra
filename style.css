@@ -154,6 +154,29 @@ header p {
   color: #fff;
 }
 
+.highlight-trigger {
+  color: var(--accent-hover);
+  text-decoration: underline dashed;
+  text-underline-offset: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s;
+  padding: 0 4px;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.highlight-trigger:hover {
+  color: #fff;
+  background-color: rgba(96, 165, 250, 0.15);
+}
+
+.highlight-trigger.active {
+  color: #fff;
+  background-color: var(--accent-color);
+  text-decoration: none;
+}
+
 .controls {
   background: rgba(0, 0, 0, 0.3);
   padding: 16px;

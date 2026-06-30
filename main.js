@@ -222,6 +222,8 @@ scene.add(dirLight2);
 
 let currentMesh = null;
 let currentEdges = null;
+let currentVertices = null;
+let activeHighlight = null;
 const modelGroup = new THREE.Group();
 scene.add(modelGroup);
 
@@ -276,6 +278,7 @@ function buildMesh(d, limit = 0) {
 
   if (currentMesh) modelGroup.remove(currentMesh);
   if (currentEdges) modelGroup.remove(currentEdges);
+  if (currentVertices) modelGroup.remove(currentVertices);
 
   const mat = new THREE.MeshStandardMaterial({
     vertexColors: true,
@@ -294,12 +297,106 @@ function buildMesh(d, limit = 0) {
   currentEdges = new THREE.LineSegments(edgeGeom, edgeMat);
   modelGroup.add(currentEdges);
 
+  // Collect unique vertices
+  const uniqueVertsMap = new Map();
+  for (const tet of state.tets) {
+    for (const p of tet.verts) {
+      uniqueVertsMap.set(pointKey(p), p);
+    }
+  }
+
+  currentVertices = new THREE.Group();
+  const sphereGeom = new THREE.SphereGeometry(0.12, 16, 16);
+  const sphereMat = new THREE.MeshBasicMaterial({
+    color: 0xffffff,
+    transparent: true,
+    opacity: 0.3
+  });
+
+  uniqueVertsMap.forEach((p) => {
+    const mesh = new THREE.Mesh(sphereGeom, sphereMat.clone());
+    mesh.position.copy(p);
+    currentVertices.add(mesh);
+  });
+  modelGroup.add(currentVertices);
+
+  applyHighlightStyles();
+
   document.getElementById("stat-tets").textContent = state.totalTets;
   document.getElementById("stat-faces").textContent = state.exposed.length;
 }
 
+function applyHighlightStyles() {
+  if (!currentMesh || !currentEdges || !currentVertices) return;
+
+  // Reset to defaults
+  currentMesh.material.opacity = 0.9;
+  currentMesh.material.transparent = true;
+  if (currentMesh.material.emissive) {
+    currentMesh.material.emissive.setHex(0x000000);
+  }
+  
+  currentEdges.material.color.setHex(0xffffff);
+  currentEdges.material.opacity = 0.3;
+
+  currentVertices.children.forEach(child => {
+    child.material.color.setHex(0xffffff);
+    child.material.opacity = 0.3;
+    child.scale.set(1, 1, 1);
+  });
+
+  // Apply active highlight
+  if (activeHighlight === 'faces') {
+    currentMesh.material.opacity = 1.0;
+    if (currentMesh.material.emissive) {
+      currentMesh.material.emissive.setHex(0x1a1a00); // subtle warm glow
+    }
+    currentEdges.material.opacity = 0.1;
+    currentVertices.children.forEach(child => {
+      child.material.opacity = 0.1;
+    });
+  } else if (activeHighlight === 'edges') {
+    currentEdges.material.color.setHex(0x3b82f6); // accent blue
+    currentEdges.material.opacity = 1.0;
+    currentMesh.material.opacity = 0.15;
+    currentVertices.children.forEach(child => {
+      child.material.opacity = 0.1;
+    });
+  } else if (activeHighlight === 'vertices') {
+    currentVertices.children.forEach(child => {
+      child.material.color.setHex(0xec4899); // hot pink
+      child.material.opacity = 1.0;
+      child.scale.set(1.8, 1.8, 1.8);
+    });
+    currentMesh.material.opacity = 0.15;
+    currentEdges.material.opacity = 0.1;
+  }
+}
+
+function setHighlight(type) {
+  if (activeHighlight === type) {
+    activeHighlight = null;
+  } else {
+    activeHighlight = type;
+  }
+
+  // Update DOM active classes
+  document.querySelectorAll('.highlight-trigger').forEach(el => {
+    if (el.dataset.type === activeHighlight) {
+      el.classList.add('active');
+    } else {
+      el.classList.remove('active');
+    }
+  });
+
+  applyHighlightStyles();
+}
+
 // === UI Interaction ===
 function updateViewForStep() {
+  activeHighlight = null;
+  document.querySelectorAll('.highlight-trigger').forEach(el => el.classList.remove('active'));
+
   document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
   document.querySelector(`.step[data-step="${currentStep}"]`).classList.add('active');
 
@@ -378,4 +475,14 @@ function animate() {
 // Init
 initCache(1.0);
 updateViewForStep();
+
+// Delegate highlight-trigger click events
+document.addEventListener('click', (e) => {
+  const trigger = e.target.closest('.highlight-trigger');
+  if (trigger) {
+    const type = trigger.dataset.type;
+    setHighlight(type);
+  }
+});
+
 animate();
