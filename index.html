@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Beauty of Tetrahedra</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div id="app">
+      <div id="sidebar">
+        <header>
+          <h1>The Beauty of Geometry</h1>
+          <p>Face-Attached Tetrahedra</p>
+        </header>
+        
+        <div id="steps-container">
+          <div class="step active" data-step="1">
+            <h2>1. The Tetrahedron</h2>
+            <p>Meet the simplest 3D shape. It has 4 identical triangular faces, 4 vertices, and 6 edges. You can drag to rotate and scroll to zoom.</p>
+            <button class="next-btn">Next: Face to Face ➔</button>
+          </div>
+          
+          <div class="step" data-step="2">
+            <h2>2. Face to Face</h2>
+            <p>What happens when we attach an identical tetrahedron to one of its faces? The shape grows, but notice how the angles meet.</p>
+            <button class="next-btn">Next: Branching Out ➔</button>
+          </div>
+          
+          <div class="step" data-step="3">
+            <h2>3. Branching Out</h2>
+            <p>Now let's attach a new tetrahedron to <em>every</em> exposed face of the original shape. This is Iteration 2. The complexity begins to bloom.</p>
+            <button class="next-btn">Next: Avoiding Intersections ➔</button>
+          </div>
+
+          <div class="step" data-step="4">
+            <h2>4. Avoiding Intersections</h2>
+            <p>If we keep adding tetrahedra (Iteration 4), we run into a problem: sometimes a new shape would intersect with an existing one. We must skip adding it there to preserve the structure's physical possibility.</p>
+            <button class="next-btn">Next: Infinite Beauty ➔</button>
+          </div>
+
+          <div class="step" data-step="5">
+            <h2>5. Infinite Beauty</h2>
+            <p>Explore the fractal-like beauty of higher iterations. At depth 20 or 50, the shape forms complex ridges, spikes, and valleys.</p>
+            <div class="controls">
+              <label>Iteration Depth: <span id="depth-val">5</span></label>
+              <input type="range" id="depth-slider" min="1" max="25" value="5">
+              
+              <label>Color Mode:</label>
+              <select id="color-mode">
+                <option value="face">Distinct Faces</option>
+                <option value="iteration">By Iteration</option>
+                <option value="age">Age (Newer is Brighter)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div id="stats">
+          <p>Tetrahedra: <span id="stat-tets">1</span></p>
+          <p>Exposed Faces: <span id="stat-faces">4</span></p>
+        </div>
+      </div>
+      
+      <div id="canvas-container"></div>
+    </div>
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>
