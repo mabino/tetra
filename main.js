@@ -452,7 +452,15 @@ document.getElementById("depth-slider").addEventListener("change", (e) => {
   camera.position.set(0, currentDepth*3, currentDepth*5 + 10);
 });
 
-document.getElementById("color-mode").addEventListener("change", () => {
+const colorModeDescriptions = {
+  face: "Colors each face with a distinct color from the palette, emphasizing the structural boundaries.",
+  iteration: "Colors the shape by its creation generation. Each growth level receives a distinct color hue.",
+  age: "Colors the shape from core to surface. Newer additions appear in brighter, warmer tones."
+};
+
+document.getElementById("color-mode").addEventListener("change", (e) => {
+  const desc = colorModeDescriptions[e.target.value] || "";
+  document.getElementById("color-mode-desc").textContent = desc;
   buildMesh(currentDepth);
 });
 

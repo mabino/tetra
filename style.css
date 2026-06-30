@@ -227,6 +227,13 @@ select {
   outline: none;
 }
 
+#color-mode-desc {
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+
 #stats {
   margin-top: auto;
   padding-top: 24px;
