@@ -96,15 +96,23 @@ header p {
 }
 
 .step h2 {
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 600;
   color: #fff;
 }
 
 .step p {
-  font-size: 15px;
+  font-size: 18px;
   line-height: 1.6;
   color: var(--text-secondary);
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-top: 8px;
+  flex-wrap: wrap;
 }
 
 .next-btn {
@@ -118,8 +126,6 @@ header p {
   font-weight: 600;
   cursor: pointer;
   transition: background 0.2s, transform 0.1s;
-  align-self: flex-start;
-  margin-top: 8px;
 }
 
 .next-btn:hover {
@@ -128,6 +134,24 @@ header p {
 
 .next-btn:active {
   transform: scale(0.97);
+}
+
+.skip-btn, .reset-btn {
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--panel-border);
+  padding: 11px 16px;
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.skip-btn:hover, .reset-btn:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
 }
 
 .controls {
@@ -195,4 +219,37 @@ select {
   color: #fff;
   font-weight: 600;
   font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 768px) {
+  #sidebar {
+    top: auto;
+    left: 16px;
+    right: 16px;
+    bottom: 16px;
+    width: auto;
+    max-height: 45vh;
+    padding: 24px 20px;
+  }
+  
+  header h1 {
+    font-size: 24px;
+  }
+  
+  .step h2 {
+    font-size: 20px;
+  }
+  
+  .step p {
+    font-size: 16px;
+  }
+
+  .actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .next-btn, .skip-btn, .reset-btn {
+    text-align: center;
+  }
 }

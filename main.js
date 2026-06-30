@@ -333,6 +333,21 @@ document.querySelectorAll('.next-btn').forEach(btn => {
   });
 });
 
+document.querySelectorAll('.skip-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    currentStep = 5;
+    updateViewForStep();
+  });
+});
+
+const resetBtn = document.querySelector('.reset-btn');
+if (resetBtn) {
+  resetBtn.addEventListener('click', () => {
+    currentStep = 1;
+    updateViewForStep();
+  });
+}
+
 document.getElementById("depth-slider").addEventListener("input", (e) => {
   document.getElementById("depth-val").textContent = e.target.value;
 });

@@ -21,30 +21,45 @@
           <div class="step active" data-step="1">
             <h2>1. The Tetrahedron</h2>
             <p>Meet the simplest 3D shape. It has 4 identical triangular faces, 4 vertices, and 6 edges. You can drag to rotate and scroll to zoom.</p>
-            <button class="next-btn">Next: Face to Face ➔</button>
+            <div class="actions">
+              <button class="next-btn">Next: Face to Face ➔</button>
+              <button class="skip-btn">Skip Intro</button>
+            </div>
           </div>
           
           <div class="step" data-step="2">
             <h2>2. Face to Face</h2>
             <p>What happens when we attach an identical tetrahedron to one of its faces? The shape grows, but notice how the angles meet.</p>
-            <button class="next-btn">Next: Branching Out ➔</button>
+            <div class="actions">
+              <button class="next-btn">Next: Branching Out ➔</button>
+              <button class="skip-btn">Skip Intro</button>
+            </div>
           </div>
           
           <div class="step" data-step="3">
             <h2>3. Branching Out</h2>
             <p>Now let's attach a new tetrahedron to <em>every</em> exposed face of the original shape. This is Iteration 2. The complexity begins to bloom.</p>
-            <button class="next-btn">Next: Avoiding Intersections ➔</button>
+            <div class="actions">
+              <button class="next-btn">Next: Avoiding Intersections ➔</button>
+              <button class="skip-btn">Skip Intro</button>
+            </div>
           </div>
 
           <div class="step" data-step="4">
             <h2>4. Avoiding Intersections</h2>
             <p>If we keep adding tetrahedra (Iteration 4), we run into a problem: sometimes a new shape would intersect with an existing one. We must skip adding it there to preserve the structure's physical possibility.</p>
-            <button class="next-btn">Next: Infinite Beauty ➔</button>
+            <div class="actions">
+              <button class="next-btn">Next: Infinite Beauty ➔</button>
+              <button class="skip-btn">Skip Intro</button>
+            </div>
           </div>
 
           <div class="step" data-step="5">
             <h2>5. Infinite Beauty</h2>
             <p>Explore the fractal-like beauty of higher iterations. At depth 20 or 50, the shape forms complex ridges, spikes, and valleys.</p>
+            <div class="actions">
+              <button class="reset-btn">↺ Restart Intro</button>
+            </div>
             <div class="controls">
               <label>Iteration Depth: <span id="depth-val">5</span></label>
               <input type="range" id="depth-slider" min="1" max="25" value="5">
