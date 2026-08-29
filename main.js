@@ -490,4 +490,25 @@ document.addEventListener('click', (e) => {
   }
 });
 
+// Theme Toggle & System Theme Adaptation
+const themeBtn = document.getElementById('theme-toggle');
+if (themeBtn) {
+  themeBtn.addEventListener('click', function () {
+    const pinned = document.documentElement.getAttribute('data-theme');
+    const effective = pinned ||
+      (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    const next = effective === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('binolabs-theme', next);
+  });
+}
+
+if (window.matchMedia) {
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function () {
+    if (!localStorage.getItem('binolabs-theme') && !localStorage.getItem('seccam-theme')) {
+      document.documentElement.removeAttribute('data-theme');
+    }
+  });
+}
+
 animate();

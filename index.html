@@ -4,6 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>The Beauty of Tetrahedra</title>
+    <script>
+      (function () {
+        var t = localStorage.getItem('binolabs-theme') || localStorage.getItem('seccam-theme');
+        if (t) document.documentElement.setAttribute('data-theme', t);
+      })();
+    </script>
     <link rel="stylesheet" href="./style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -79,6 +85,11 @@
           <p>Tetrahedra: <span id="stat-tets">1</span></p>
           <p>Exposed Faces: <span id="stat-faces">4</span></p>
         </div>
+
+        <footer class="sidebar-footer">
+          <span>&copy; 2026 BinoLabs &bull; Tetra</span>
+          <button id="theme-toggle" title="Toggle light/dark theme" aria-label="Toggle light/dark theme">◐</button>
+        </footer>
       </div>
       
       <div id="canvas-container"></div>
